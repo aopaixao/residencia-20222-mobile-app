@@ -38,7 +38,7 @@ const Login =  ({ navigation }) => {
           //Passando pro metodo do contexto o token jwt
           armazenaDadosUsuario(tokenJwt["jwt-token"]);
 
-          navigation.navigate('HomeScreen');
+          navigation.navigate('BottomNavigatorScreen');
         }else{
           console.log('Erro ao realizar a autenticação');  
         }

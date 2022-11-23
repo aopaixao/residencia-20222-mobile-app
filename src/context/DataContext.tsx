@@ -10,6 +10,7 @@ export const DataContext = createContext({});
 //Criando o provedor do Contexto
 export const DataProvider = ({children}) => {
   const [dadosUsuario, setDadosUsuario] = useState<DadosUsuarioType>();
+  const [editoraSelecionada, setEditoraSelecionada] = useState<number>();
 
   const armazenaDadosUsuario = (jwt:any) => {
     var tokenDecodificado:any = jwt_decode(jwt);
@@ -30,10 +31,15 @@ export const DataProvider = ({children}) => {
     });
   }
 
+  const armazenaEditoraSelecionada = (id:number) => {
+    setEditoraSelecionada(id);
+  }
+
   return (
     <DataContext.Provider value={{
       dadosUsuario,
-      armazenaDadosUsuario
+      armazenaDadosUsuario,
+      armazenaEditoraSelecionada
     }}>
       {children}
     </DataContext.Provider>

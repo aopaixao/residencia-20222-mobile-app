@@ -22,13 +22,17 @@ const Item = ({ item, eventoPressionarBotao, backgroundColor, textColor }) => (
   </TouchableOpacity>
 );
 
-const Home = () => {
+const Home = ({navigation}) => {
 
   const {dadosUsuario} = useContext(DataContext);
   const [dadosEditora, setDadosEditora] = useState<DadosEditoraType[]>([]);
   const [selectedId, setSelectedId] = useState(null);
 
   useEffect(() => {
+    const stackNavigator = navigation.getParent();
+    if(stackNavigator){
+      stackNavigator.setOptions({ title: `Bem-vindo, ${dadosUsuario.nome}`});
+    }
     getAllEditoras();
   },[]);
 
@@ -44,6 +48,14 @@ const Home = () => {
     });
   }
 
+  const navigateToEditoraHome = (id:any) => {
+    setSelectedId(id);
+
+    navigation.navigate('HomeEditoraScreen', {
+      editoraId: id,
+    });
+  }
+
   const renderItem = ({ item }) => {
     const backgroundColor = item.codigoEditora === selectedId ? "#6e3b6e" : "#f9c2ff";
     const color = item.codigoEditora === selectedId ? 'white' : 'black';
@@ -51,7 +63,7 @@ const Home = () => {
     return (
       <Item
         item={item}
-        eventoPressionarBotao={() => setSelectedId(item.codigoEditora)}
+        eventoPressionarBotao={() => navigateToEditoraHome(item.codigoEditora)}
         backgroundColor={{ backgroundColor }}
         textColor={{ color }}
       />
@@ -65,6 +77,7 @@ const Home = () => {
         renderItem={renderItem}
         keyExtractor={(item) => item.codigoEditora}
         extraData={selectedId}
+        horizontal={true}
       />
     </View>
   );
@@ -76,9 +89,11 @@ const styles = StyleSheet.create({
     marginTop: StatusBar.currentHeight || 0,
   },
   item: {
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
+    marginHorizontal: 8,
+    padding:10,
+    width:120,
+    height:120,
+    justifyContent:'center',
   },
   title: {
     fontSize: 32,
