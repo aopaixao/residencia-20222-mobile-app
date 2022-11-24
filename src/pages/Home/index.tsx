@@ -41,6 +41,7 @@ const CardLivro = ({ item }) => {
   </Card>
   );
 }
+
 const addFavorite = (livro:DadosLivroType) => {
   //console.log(`Favoritos: Livro selecionado: ${JSON.stringify(livro)}`);
   incrementLocalData('favoritos', livro);
@@ -72,7 +73,7 @@ const Home = ({navigation}) => {
       '/editoras',
       {headers: {"Authorization" : `Bearer ${dadosUsuario?.token}`}}
     ).then( resultado => {
-      console.log('Dados das Editoras: ' + JSON.stringify(resultado.data));
+      //console.log('Dados das Editoras: ' + JSON.stringify(resultado.data));
       setDadosEditora(resultado.data);
     }).catch((error) => {
       console.log('Ocorreu um erro ao recuperar os dados das Editoras: ' + JSON.stringify(error));
@@ -85,9 +86,10 @@ const Home = ({navigation}) => {
       {headers: {"Authorization" : `Bearer ${dadosUsuario?.token}`}}
     ).then( resultado => {
       //console.log('Dados dos Livros: ' + JSON.stringify(resultado.data));
-
-      resultado.data.map((key:any, indice:number) => (
-        setDadosLivro(dadosLivro => [...dadosLivro, {
+      setDadosLivro([]);
+      let arrayLivros = resultado.data;
+      arrayLivros.map(key => (
+        setDadosLivro(current => [...current, {
           codigoLivro: key.codigoLivro,
           nomeLivro: key.nomeLivro,
           dataLancamento: key.dataLancamento,
@@ -105,7 +107,6 @@ const Home = ({navigation}) => {
           }
         }])
       ));
-
     }).catch((error) => {
       console.log('Ocorreu um erro ao recuperar os dados dos Livros: ' + JSON.stringify(error));
     });
