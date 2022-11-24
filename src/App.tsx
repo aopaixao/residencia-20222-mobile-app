@@ -35,6 +35,13 @@ const BottomNavigator = () => {
           tabBarIcon: () => (<Ionicons name='library' color='#000' size={24} />)
         }}
       />
+      <TabBottomNavigation.Screen name="HomeEditoraTabScreen" component={HomeEditora}
+        options={{
+          title:'Home Editora',
+          tabBarIcon: () => (<Ionicons name='library' color='#000' size={24} />),
+          tabBarButton: (props) => null, 
+        }}
+      />
     </TabBottomNavigation.Navigator>
   );
 }
@@ -50,7 +57,7 @@ const App = () => {
             title:'Home' }} 
             component={BottomNavigator} 
           />
-          <Stack.Screen name="HomeEditoraScreen" component={HomeEditora} />
+          {/*<Stack.Screen name="HomeEditoraScreen" component={HomeEditora} />*/}
         </Stack.Navigator>
       </NavigationContainer>
     </DataProvider>

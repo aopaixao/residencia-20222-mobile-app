@@ -114,8 +114,12 @@ const Home = ({navigation}) => {
 
   const navigateToEditoraHome = (id:any) => {
     setSelectedId(id);
-
+    /*
     navigation.navigate('HomeEditoraScreen', {
+      editoraId: id,
+    });
+    */
+    navigation.navigate('HomeEditoraTabScreen', {
       editoraId: id,
     });
   }
